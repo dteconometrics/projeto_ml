@@ -1,0 +1,195 @@
+---
+pagetitle: "Previsão do IPCA com modelos de aprendizado de máquina"
+lang: pt-BR
+format:
+  revealjs:
+    theme: [simple, tema.scss]
+    width: 1280
+    height: 720
+    margin: 0.08
+    slide-number: c/t
+    transition: fade
+    center: true
+    auto-stretch: false
+    controls: true
+    progress: true
+    embed-resources: true
+execute:
+  enabled: false
+---
+
+## Previsão do IPCA {.capa .sem-titulo}
+
+![](assets/Logo_Cin_UFPE.png){.nostretch width=200 fig-alt="Centro de Informática da UFPE"}
+
+### Previsão do IPCA com modelos de aprendizado de máquina
+
+Comparação de modelos, projeções mensais e simulação
+
+::: notes
+Apresentar a conexão com o TCC em R e a reconstrução do trabalho em Python. O logo foi fornecido pelo autor. Não implica endosso institucional.
+:::
+
+## Objetivo 
+
+Prever a **variação mensal do IPCA** em diferentes horizontes.
+
+- Comparar modelos com referências de mercado e um modelo simples.
+- Escolher hiperparâmetros por validação temporal.
+- Disponibilizar os resultados em uma aplicação Dash.
+
+::: notes
+Os horizontes de avaliação são 1, 3, 6 e 12 meses. A previsão para h=12 corresponde à taxa mensal naquele mês, não à inflação acumulada em 12 meses.
+:::
+
+## Dados 
+
+| Fonte | Papel na coleta do projeto |
+|:--|:--|
+| IBGE / SIDRA | IPCA e indicadores econômicos |
+| Banco Central / SGS | Juros, câmbio e agregados monetários |
+| Banco Central / Focus | Expectativas de inflação |
+| Ipeadata | Séries econômicas complementares |
+| FRED | Indicadores internacionais |
+
+::: notes
+Fonte: células de coleta de previsao_ipca.ipynb. A presença de uma fonte na coleta não garante que todas as suas séries integrem o snapshot usado no treinamento. Os resultados apresentados usam a base dados/20260929T124334411176Z/df_ipca_consolidado.csv.
+:::
+
+## Tratamento das séries
+
+- Padronização das datas na frequência mensal.
+- Testes ADF, KPSS e Phillips–Perron para orientar diferenças.
+- Diferenças nas variáveis explicativas, preservando o IPCA como alvo.
+- Defasagens de 1 e 2 meses e indicadores sazonais.
+
+**Em cada divisão temporal, o treino determina o tratamento.**
+
+::: notes
+O código combina seis especificações dos testes, usando a moda do número de diferenças e o menor valor em caso de empate. O preenchimento segue para a frente. Esses cuidados não eliminam o problema de revisões e atrasos de publicação dos dados.
+:::
+
+## Modelos e referências
+
+::: columns
+::: {.column width="60%"}
+### Modelos
+
+Ridge e Lasso  
+Lasso Adaptativo  
+Árvore de decisão  
+Random Forest  
+CSR reduzido
+:::
+::: {.column width="40%"}
+### Referências
+
+Expectativas Focus
+
+Passeio aleatório
+:::
+:::
+
+::: notes
+CSR reduzido combina regressões de subconjuntos de variáveis selecionadas. A implementação reduzida limita o conjunto de variáveis e o tamanho de cada subconjunto.
+:::
+
+## Busca de hiperparâmetros
+
+**276 combinações avaliadas** nos quatro horizontes.
+
+- Até 12 combinações por modelo e horizonte, com sorteio reproduzível.
+- Quatro divisões temporais para comparar o RMSE médio.
+- Sete tentativas sem convergência descartadas.
+- Reajuste de cada modelo com sua configuração selecionada.
+
+::: {.fonte}
+Melhores parâmetros entre os candidatos avaliados, sem garantia de ótimo global.
+:::
+
+::: notes
+Fonte: resultados/20261005_155457_estacionariedade/busca_hiperparametros.csv. São 12 candidatos para cinco modelos e 9 para CSR, por horizonte. A semente é 42. O período de teste não participa da escolha dos hiperparâmetros.
+:::
+
+## Validação e teste
+
+### Validação temporal
+
+Treino com histórico anterior à validação e intervalo de segurança associado ao horizonte.
+
+### Avaliação final
+
+24 meses por horizonte, de **julho de 2024 a junho de 2026**.
+
+RMSE e MAE comparam as previsões ao IPCA observado.
+
+::: notes
+Fonte: previsoes_teste.csv e auditoria_temporal.csv da execução de 05/10/2026. O teste é fora da amostra de treinamento, mas usa dados revisados e não reproduz integralmente a informação disponível em tempo real.
+:::
+
+## Resultados fora da amostra
+
+RMSE no teste, em pontos percentuais. **Menor é melhor.**
+
+{{< include graficos/tabela.qmd >}}
+
+::: notes
+Fonte: metricas.csv e modelos_selecionados.csv em resultados/20261005_155457_estacionariedade. Valores arredondados a três casas. Seleção pelo RMSE de validação, não pelo menor erro no teste. O Random Forest selecionado para três meses tem RMSE de 0,252, contra 0,265 do Focus. Não foi realizado teste de significância dessa diferença.
+:::
+
+## Comparação dos modelos {.grafico}
+
+Erro no teste por horizonte. Vermelho indica o modelo escolhido na validação.
+
+{{< include graficos/rmse.qmd >}}
+
+::: {.fonte}
+Selecione o horizonte no gráfico. Passe o mouse para consultar RMSE e MAE.
+:::
+
+::: notes
+Fonte: metricas.csv e modelos_selecionados.csv da execução 20261005_155457_estacionariedade. As barras comparam todos os modelos, incluindo as referências. A seleção em vermelho usa a validação, não o teste.
+:::
+
+## IPCA observado e previsto {.grafico}
+
+Teste histórico de julho de 2024 a junho de 2026, com dados revisados.
+
+{{< include graficos/previsoes.qmd >}}
+
+::: {.fonte}
+Escolha o horizonte. Clique na legenda para ocultar séries e arraste para ampliar.
+:::
+
+::: notes
+Fonte: previsoes_teste.csv e modelos_selecionados.csv da execução 20261005_155457_estacionariedade. Para cada horizonte, a curva vermelha representa o modelo selecionado na validação. Este gráfico mostra teste histórico fora da amostra, não projeções para datas futuras.
+:::
+
+## Aplicação em Dash
+
+### Comparação de modelos
+
+Resultados históricos e avaliação fora da amostra.
+
+### Projeções e simulação
+
+Trajetória para os próximos 12 meses e inflação acumulada por composição das taxas mensais.
+
+Simulação educacional do efeito da inflação sobre o poder de compra de uma carteira.
+
+::: notes
+Demonstrar a aplicação local, se estiver em execução. Conferir a data dos artefatos de projeção antes da apresentação: eles podem ser de uma execução diferente dos resultados históricos. A simulação não constitui recomendação de investimento. Não somar taxas mensais para calcular o acumulado.
+:::
+
+## Limitações e próximos passos
+
+- Dados revisados e calendários de divulgação ainda limitam a avaliação em tempo real.
+- A busca cobre apenas uma parte do espaço de hiperparâmetros.
+- As diferenças de desempenho variam conforme o horizonte.
+- Próximos passos: avaliar incerteza e ampliar o teste temporal.
+
+**O principal resultado é uma comparação reproduzível, com critérios explícitos de seleção.**
+
+::: notes
+Conclusão restrita aos resultados da execução de 05/10/2026. Evitar afirmar superioridade geral dos modelos de ML. Esta primeira versão pode ser ajustada ao tempo disponível para apresentação.
+:::

@@ -1,0 +1,47 @@
+# Ambientes e caches Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Configurações locais e credenciais
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+
+# Dados e resultados gerados
+dados/**
+resultados/**
+!resultados/20261005_155457_estacionariedade/
+!resultados/20261005_155457_estacionariedade/metricas.csv
+!resultados/20261005_155457_estacionariedade/previsoes_teste.csv
+!resultados/20261005_155457_estacionariedade/modelos_selecionados.csv
+!resultados/projecoes/
+resultados/projecoes/*
+!resultados/projecoes/20261002_083222/
+resultados/projecoes/20261002_083222/*
+!resultados/projecoes/20261002_083222/previsoes_futuras.csv
+!resultados/projecoes/20261002_083222/historico.csv
+!resultados/projecoes/20261002_083222/manifesto.json
+data/raw/**
+data/processed/**
+artifacts/modelos/**
+artifacts/resultados/**
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Cópias antigas e arquivos locais não necessários à aplicação
+legado/
+*.pkl
+*.joblib
+pme.csv
+
+# Histórico e sessões do R
+.Rhistory
+.RData
+.Ruserdata

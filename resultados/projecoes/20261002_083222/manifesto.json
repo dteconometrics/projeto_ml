@@ -1,0 +1,18 @@
+{
+  "emissao": "2026-10-02T08:32:22.536006-03:00",
+  "ultima_observacao": "2026-08-01",
+  "base": "dados\\20261002T101255537146Z\\df_ipca_consolidado.csv",
+  "avaliacao": "20261002_080419_estacionariedade",
+  "sha256_base": "b254777658f1cdef445f78ffcc6b2cf24438bf9f3690c01a10f3be2ed369a25b",
+  "versoes": {
+    "numpy": "2.1.3",
+    "pandas": "2.2.3",
+    "arch": "8.0.0",
+    "scikit-learn": "1.6.1"
+  },
+  "tipo": "12 previsões mensais diretas e composição das taxas; sem intervalos calibrados",
+  "inflacao_12_meses": 4.495648031509392,
+  "periodo_inicio": "2026-09-01",
+  "periodo_fim": "2027-08-01",
+  "observacao": "Refit com dados revisados disponíveis na emissão; origem de referência é o último mês da base, não uma emissão histórica nessa data."
+}

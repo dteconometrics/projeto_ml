@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+    background: #ffffff;
+    color: #252525;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+main { max-width: 1050px; margin: 40px auto; padding: 0 24px; }
+h1 { color: #b51227; font-size: 30px; }
+p { line-height: 1.5; }
+button {
+    background: #b51227;
+    color: #ffffff;
+    border: 0;
+    border-radius: 5px;
+    padding: 12px 18px;
+    cursor: pointer;
+    font: inherit;
+}
+button:hover { background: #921022; }
+button:focus-visible { outline: 3px solid #566879; outline-offset: 3px; }

@@ -1,0 +1,41 @@
+/*-- scss:defaults --*/
+$body-bg: #ffffff;
+$body-color: #252525;
+$link-color: #d7192d;
+$presentation-heading-color: #b51227;
+$font-family-sans-serif: "Segoe UI", Arial, sans-serif;
+$presentation-font-size-root: 30px;
+$presentation-heading-font: "Segoe UI", Arial, sans-serif;
+
+/*-- scss:rules --*/
+.reveal h1 { font-size: 2.1em; font-weight: 700; }
+.reveal h2 { font-size: 1.5em; font-weight: 650; margin-bottom: 0.65em; }
+.reveal h3 { font-size: 1.05em; margin-top: 0.7em; }
+.reveal p, .reveal li { line-height: 1.4; }
+.reveal li { margin-bottom: 0.5em; }
+.reveal strong { color: #b51227; }
+.reveal .slides { text-align: left; }
+.reveal .slides section > p,
+.reveal .slides section > .columns,
+.reveal .slides section > .fonte { max-width: 1040px; margin-left: 0; margin-right: auto; }
+.reveal .slides section > ul { display: block; width: fit-content; max-width: 1000px; margin: 1em 0; text-align: left; }
+.reveal .slides section > h2 { text-align: left; }
+.reveal .column { text-align: left; }
+.reveal .capa h3 { font-size: 1.75em; max-width: 1080px; margin: 0.5em 0; line-height: 1.18; text-align: left; }
+.reveal .capa > p { max-width: 950px; margin-left: 0; }
+.reveal .grafico .plotly-graph-div { margin: 0; }
+.reveal .grafico > h2 { margin-bottom: 0.25em; }
+.reveal .grafico > p { font-size: 0.8em; margin-top: 0.25em; margin-bottom: 0.3em; }
+.reveal .grafico .fonte { margin-top: 0.2em; }
+.reveal table { width: 100%; font-size: 0.8em; margin-top: 1em; }
+.reveal table th { color: #b51227; border-bottom: 2px solid #d7192d; }
+.reveal table td, .reveal table th { padding: 0.5em 0.4em; }
+.reveal .fonte { font-size: 0.7em; color: #626262; margin-top: 1.3em; }
+.reveal .slide-number { color: #626262; background: transparent; }
+.reveal .progress { color: #d7192d; }
+.reveal .controls { color: #b51227; }
+.reveal .capa { padding-top: 0.7em; }
+.reveal .capa img { margin: 0 0 1em; }
+.reveal .sem-titulo > h2 { display: none; }
+#title-slide { text-align: left; }
+#title-slide .subtitle { max-width: 900px; color: #626262; }

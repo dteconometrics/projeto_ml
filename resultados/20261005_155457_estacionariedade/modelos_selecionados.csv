@@ -1,0 +1,5 @@
+h,modelo,parametros,RMSE_validacao
+1,Lasso Adaptativo,"{""ridge_alpha"": 0.1, ""gamma"": 2.0, ""alpha"": 0.00011288378916846884}",0.3585957877705054
+3,Random Forest,"{""n_estimators"": 100, ""min_samples_leaf"": 1, ""max_features"": 1.0, ""max_depth"": null}",0.45085501084710744
+6,Ridge,"{""alpha"": 4641.588833612773}",0.4612715462953446
+12,Lasso Adaptativo,"{""ridge_alpha"": 100.0, ""gamma"": 2.0, ""alpha"": 6.158482110660267e-05}",0.4627505933054561

@@ -1,0 +1,11 @@
+| Horizonte | Selecionado na validação | RMSE | Focus | Passeio aleatório |
+|:--|:--|--:|--:|--:|
+| 1 mês | Lasso Adaptativo | 0,299 | 0,201 | 0,372 |
+| 3 meses | Random Forest | 0,252 | 0,265 | 0,431 |
+| 6 meses | Ridge | 0,276 | 0,266 | 0,430 |
+| 12 meses | Lasso Adaptativo | 0,311 | 0,265 | 0,349 |
+
+::: {.fonte}
+Horizontes em que o selecionado supera o Focus: 3 mês(es).
+Supera o passeio aleatório em: 1, 3, 6, 12 mês(es).
+:::
